@@ -1,0 +1,23 @@
+data_storage:
+  image: ubuntu:14.04
+  volumes:
+   - "/data/jenkins:/var/jenkins_home"
+   - "/data/nexus:/sonatype-work"
+
+
+jenkins:
+  build: ../jenkins
+  ports:
+   - "5000:5000"
+   - "8080:8080"
+  volumes_from:
+   - data_storage
+
+
+nexus:
+  image: sonatype/nexus:oss
+  ports:
+   - "8081:8081"
+  volumes_from:
+   - data_storage
+
