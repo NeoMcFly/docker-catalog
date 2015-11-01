@@ -1,9 +1,6 @@
-data_storage:
-  image: ubuntu:14.04
-  volumes:
-   - "/data/jenkins:/var/jenkins_home"
-   - "/data/nexus:/sonatype-work"
 
+data_storage:
+  build: ../data
 
 jenkins:
   build: ../jenkins
