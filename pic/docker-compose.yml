@@ -1,9 +1,19 @@
 
 data_storage:
-  build: ../data
+  build: data
+  volumes:
+  - /usr/local/apache2/htdocs/
+
+httpd:
+  build: httpd
+  ports:
+   - "80:80"
+  volumes_from:
+   - data_storage
+
 
 jenkins:
-  build: ../jenkins
+  build: jenkins
   ports:
    - "5000:5000"
    - "8080:8080"
