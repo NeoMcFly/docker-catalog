@@ -1,0 +1,12 @@
+
+android-sdk:
+  build: android-sdk
+
+
+data_storage:
+  build: data
+  volumes:
+  - /usr/local/apache2/htdocs/
+  - /opt/android-sdk-linux
+  volumes_from:
+  - android-sdk
