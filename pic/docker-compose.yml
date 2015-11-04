@@ -1,9 +1,16 @@
 
+android-sdk:
+  build: android-sdk
+
+
 data_storage:
   build: data
   volumes:
   - /usr/local/apache2/htdocs/
-
+  - /opt/android-sdk-linux
+  volumes_from:
+  - android-sdk
+   
 httpd:
   build: httpd
   ports:
@@ -17,6 +24,8 @@ jenkins:
   ports:
    - "5000:5000"
    - "8080:8080"
+  volumes:
+  - /opt/android-sdk-linux
   volumes_from:
    - data_storage
 
