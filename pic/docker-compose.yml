@@ -1,39 +1,33 @@
 
-android-sdk:
-  build: android-sdk
-
-
 data_storage:
-  build: data
+  image: ubuntu:14.04
+  container_name: data
   volumes:
-  - /usr/local/apache2/htdocs/
-  - /opt/android-sdk-linux
-  volumes_from:
-  - android-sdk
-   
+  - /data/docker/apache2:/usr/local/apache2/htdocs:rw
+  - /data/docker/jenkins:/var/jenkins_home:rw
+  - /data/docker/nexus:/sonatype-work:rw
+
 httpd:
   build: httpd
+  container_name: http-front
   ports:
    - "80:80"
   volumes_from:
    - data_storage
 
-
 jenkins:
-  build: jenkins
+  image: jenkins
+  container_name: jenkins-app
   ports:
    - "5000:5000"
    - "8080:8080"
-  volumes:
-  - /opt/android-sdk-linux
   volumes_from:
    - data_storage
 
-
 nexus:
   image: sonatype/nexus:oss
+  container_name: nexus-app
   ports:
    - "8081:8081"
   volumes_from:
    - data_storage
-
