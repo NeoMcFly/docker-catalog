@@ -1,0 +1,27 @@
+
+data_storage:
+  image: ubuntu:14.04
+  container_name: data_app
+  volumes:
+  - /data/docker/torrents:/downloads:rw
+  - /data/docker/emby:/config:rw
+  - /data/docker/torrents:/media:rw
+
+rtorrent:
+  image: diameter/rtorrent-rutorrent:64-latest
+  container_name: rtorrent
+  ports:
+   - "8082:80"
+   - "443:443"
+   - "49161:49161"
+   - "49160:49160/udp"
+  volumes_from:
+   - data_storage
+
+emby:
+  image: emby/embyserver
+  container_name: emby
+  ports:
+   - "8096:8096"
+  volumes_from:
+   - data_storage
